@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.macro.mall</groupId>
+    <artifactId>mall-swarm-arch</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <skipTests>true</skipTests>
+        <docker.host>http://192.168.3.101:2375</docker.host>
+        <spring-boot.version>3.2.2</spring-boot.version>
+        <spring-boot-admin.version>3.2.2</spring-boot-admin.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.0.0-RC1</spring-cloud-alibaba.version>
+        <hutool.version>5.8.16</hutool.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <druid.version>1.2.21</druid.version>
+        <pagehelper-spring-boot-starter.version>2.1.0</pagehelper-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
+        <mybatis-generator.version>1.4.2</mybatis-generator.version>
+        <mysql-connector.version>8.0.28</mysql-connector.version>
+        <minio.version>8.4.5</minio.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <pagehelper.version>6.1.0</pagehelper.version>
+        <sa-token.version>1.37.0</sa-token.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--使用aliyun的镜像源提升依赖下载速度-->
+    <repositories>
+        <repository>
+            <id>aliyunmaven</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+        <repository>
+            <id>central2</id>
+            <name>central2</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <!--使用aliyun的镜像源提升插件下载速度-->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyunmaven</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central2</id>
+            <name>central2</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

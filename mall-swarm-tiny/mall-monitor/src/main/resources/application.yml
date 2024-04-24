@@ -1,0 +1,9 @@
+server:
+  port: 8101 #指定运行端口
+spring:
+  application:
+    name: mall-monitor #指定服务名称
+  boot: # 不显示admin-server的监控信息
+    admin:
+      discovery:
+        ignored-services: ${spring.application.name}

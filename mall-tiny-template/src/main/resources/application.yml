@@ -1,0 +1,5 @@
+server:
+  port: 8080 #指定运行端口
+spring:
+  application:
+    name: mall-tiny-template #指定服务名称

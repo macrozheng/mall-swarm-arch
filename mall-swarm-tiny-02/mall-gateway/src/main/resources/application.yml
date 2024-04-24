@@ -1,0 +1,31 @@
+server:
+  port: 8201 #指定运行端口
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true #使用小写service-id
+      routes: #配置路由路径
+        - id: mall-admin
+          uri: lb://mall-admin
+          predicates:
+            - Path=/mall-admin/**
+          filters:
+            - StripPrefix=1
+        - id: mall-portal
+          uri: lb://mall-portal
+          predicates:
+            - Path=/mall-portal/**
+          filters:
+            - StripPrefix=1
+        - id: mall-search
+          uri: lb://mall-search
+          predicates:
+            - Path=/mall-search/**
+          filters:
+            - StripPrefix=1

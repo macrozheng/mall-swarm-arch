@@ -1,0 +1,104 @@
+server:
+  port: 8201 #指定运行端口
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  data:
+    redis:
+      database: 0
+      port: 6379
+      host: localhost
+      password:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true #使用小写service-id
+      routes: #配置路由路径
+        - id: mall-admin
+          uri: lb://mall-admin
+          predicates:
+            - Path=/mall-admin/**
+          filters:
+            - StripPrefix=1
+        - id: mall-portal
+          uri: lb://mall-portal
+          predicates:
+            - Path=/mall-portal/**
+          filters:
+            - StripPrefix=1
+        - id: mall-search
+          uri: lb://mall-search
+          predicates:
+            - Path=/mall-search/**
+          filters:
+            - StripPrefix=1
+# Knife4j配置
+knife4j:
+  gateway:
+    enabled: true
+    strategy: discover #网关文档聚合方式：服务发现（自动聚合）
+    discover:
+      version: openapi3 #配置OpenAPI3规范
+      enabled: true #配置开启服务发现
+      excluded-services: mall-monitor #排除监控服务
+    tags-sorter: order #配置tag排序规则
+    operations-sorter: order #配置operation排序规则
+# Sa-Token配置
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: Authorization
+  # token有效期，单位秒，-1代表永不过期
+  timeout: 2592000
+  # token临时有效期 (指定时间内无操作就视为token过期)，单位秒
+  active-timeout: -1
+  # 是否允许同一账号并发登录 (为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为false时每次登录新建一个token)
+  is-share: false
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: false
+  # 是否从cookie中读取token
+  is-read-cookie: false
+  # 是否从head中读取token
+  is-read-header: true
+  # token前缀
+  token-prefix: Bearer
+# 白名单路径配置
+secure:
+  ignored:
+    urls: # 安全路径白名单
+      - /doc.html
+      - /v3/api-docs/swagger-config
+      - /*/v3/api-docs/default
+      - /*/v3/api-docs
+      - /*/swagger-ui/**
+      - /webjars/**
+      - /favicon.ico
+      - /mall-admin/admin/login
+      - /mall-admin/minio/**
+      - /mall-search/esProduct/**
+      - /mall-portal/sso/login
+      - /mall-auth/auth/login
+# Actuator配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #暴露Actuator的监控端点
+  endpoint:
+    health:
+      show-details: always #显示健康的详细信息
+    env:
+      show-values: always #默认Actuator的环境变量会以****显示，这里开启显示
+    configprops:
+      show-values: always #默认Actuator的配置属性会以****显示，这里开启显示
+    info:
+      enabled: true
+logging:
+  file:
+    name: mall-gateway.log #配置日志文件名称，使用Admin的日志监控必须配置
