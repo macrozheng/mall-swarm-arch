@@ -6,7 +6,7 @@
 
 ## 教程文档
 
-文档地址：https://www.macrozheng.com
+文档地址：[https://cloud.macrozheng.com](https://cloud.macrozheng.com)
 
 ## 项目结构
 
